@@ -1,0 +1,44 @@
+<div class="container" style="height: 100%">
+  <input type="text" [(ngModel)]="searchtext" name="searchtext">
+
+  <!--<select [(ngModel)]="completion" name="annotation">-->
+    <!--<option value="All">All</option>-->
+    <!--<option value="ec">Extractive Completed</option>-->
+    <!--<option value="ac">Abstractive Completed</option>-->
+    <!--<option value="ei">Extractive Incomplete</option>-->
+    <!--<option value="ai">Abstractive Incomplete</option>-->
+
+  <!--</select>-->
+  <button type="button" (click)="search()">Submit</button>
+  <div class="row">
+    <div class="col-sm-3 col-md-2">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Question No.</th>
+          <th>Question</th>
+          <th>Question Type</th>
+          <th>Extractive</th>
+          <th>Abstractive</th>
+          <th>Picked By</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let question of questions" style="cursor: pointer">
+          <td><a [routerLink]="['editquestion', question._id]" >{{question._id}}</a></td>
+          <td><a [routerLink]="['editquestion', question._id]" [innerHTML]="question.Title"></a></td>
+          <td><p *ngIf="question.PostsDatum">{{question.PostsDatum.PostType}}</p><p *ngIf="!question.PostsDatum"><i class="material-icons">clear</i></p></td>
+          <td><p *ngIf="question.PostsDatum && question.PostsDatum.Abstractive"><i class="material-icons">done</i></p><p *ngIf="!(question.PostsDatum && question.PostsDatum.Abstractive)"><i class="material-icons">clear</i></p></td>
+          <td><p *ngIf="question.PostsDatum && question.PostsDatum.Extractive"><i class="material-icons">done</i></p><p *ngIf="!(question.PostsDatum && question.PostsDatum.Extractive)"><i class="material-icons">clear</i></p></td>
+          <td><p *ngIf="question.PostsDatum && question.PostsDatum.pickedBy">{{question.PostsDatum.pickedBy}}</p></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+<div class="search-results" infiniteScroll [infiniteScrollDistance]="3" [infiniteScrollThrottle]="300" (scrolled)="onScroll()">
+</div>

@@ -1,0 +1,7 @@
+.search-results {
+  height: 20rem;
+  overflow: scroll;
+}
+html, body { height: 100%; }
+
+

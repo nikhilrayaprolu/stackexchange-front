@@ -1,0 +1,88 @@
+<div class="alert" style="display: none">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  This is an alert box.
+</div>
+<div class="container">
+  <i class="material-icons" style="font-size: 48px;cursor: pointer" *ngIf="question && question.Question" (click)="sectionshow(-1)">undo</i>
+  <i class="material-icons" style="font-size: 48px;float: right;cursor: pointer" *ngIf="question && question.Question" (click)="sectionshow(1)">redo</i>
+  <div class="row">
+    <p><b>{{question.Question.Id}}.</b></p>
+    <div class="col-md-4" *ngIf="question && question.Question && presentsection == 0" [innerHTML]="question.Question.Title + question.Question.Body">
+
+    </div>
+    <div>
+      Question Type:
+      <form>
+        <select name="QuestionType" [(ngModel)] = "presenttype">
+          <option value="0">Bulletin</option>
+          <option value="1">General</option>
+          <option value="-1">All</option>
+        </select>
+        <input type="submit" (click)="questiontypeupdate()">
+      </form>
+
+    </div>
+    <div>
+      <form>
+        <button *ngIf="!picked" (click)="pick()">pick</button>
+        <button *ngIf="picked && pickedBy == currentuser" (click)="unpick()"> unpick </button>
+        <p *ngIf="picked && pickedBy != currentuser">picked By {{pickedBy}}</p>
+      </form>
+
+    </div>
+    <div class="col-md-6" *ngIf="question && question.Answers.length && (presentsection == 0 || presentsection == 1)">
+      <i class="material-icons" style="font-size: 48px;cursor: pointer" (click)="answernext(-1)">fast_rewind</i>
+      <i class="material-icons" (click)="answernext(1)" style="font-size: 48px; float:right;cursor: pointer">fast_forward</i>
+
+      <div *ngFor="let answer of question.Answers ; let i = index" >
+        <p *ngIf="presentanswer == i"><b>{{i+1}}/{{question.Answers.length}}.</b></p>
+        <div [innerHTML]="answer.Body" *ngIf="presentanswer == i"></div>
+      </div>
+
+    </div>
+    <div class="col-md-6" *ngIf="question && Answers.length && (presentsection == 1)">
+      <div *ngFor="let answer of Answers ; let i = index" >
+      <div class="form-group" *ngIf="presentanswer == i || presentsection==2">
+        <p *ngIf="presentanswer == i"><b>{{i+1}}.</b></p>
+        <label for="extractive">Extractive Summarisation</label>
+        <textarea *ngIf="presentsection == 1" class="form-control" id="extractive" rows="10" [(ngModel)]="answer.PostsDatum.Extractive"></textarea>
+        <p *ngIf="presentsection == 2">{{answer.PostsDatum.Extractive}}</p>
+        <label for="abstractive">Abstractive Summarisation</label>
+        <textarea *ngIf="presentsection == 1" class="form-control" id="abstractive" rows="10" [(ngModel)]="answer.PostsDatum.Abstractive"></textarea>
+        <p *ngIf="presentsection == 2">{{answer.PostsDatum.Abstractive}}</p>
+        <input type="submit" *ngIf="presentsection == 1" (click)="updatepresentanswer()">
+      </div>
+    </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="question && Answers.length && (presentsection == 2)">
+      <label for="extractive">Extractive Summarisation</label>
+
+      <div *ngFor="let answer of Answers ; let i = index" >
+
+        <div *ngIf="presentanswer == i || presentsection==2">
+
+          <p *ngIf="presentsection == 2"><b>{{i+1}}.</b> {{answer.PostsDatum.Extractive}}</p>
+        </div>
+      </div>
+      <label for="abstractive">Abstractive Summarisation</label>
+
+      <div *ngFor="let answer of Answers ; let i = index" >
+        <div *ngIf="presentanswer == i || presentsection==2">
+          <p *ngIf="presentsection == 2"><b>{{i+1}}.</b> {{answer.PostsDatum.Abstractive}}</p>
+        </div>
+      </div>
+    </div>
+
+  <div class="col-md-6" *ngIf="question && Answers.length && (presentsection == 2)">
+      <div class="form-group">
+        <label for="extractiveq">Extractive Summarisation</label>
+        <textarea class="form-control" id="extractiveq" rows="10" [(ngModel)]="question.Question.PostsDatum.Extractive"></textarea>
+        <label for="abstractiveq">Abstractive Summarisation</label>
+        <textarea class="form-control" id="abstractiveq" rows="10" [(ngModel)]="question.Question.PostsDatum.Abstractive"></textarea>
+        <input type="submit" (click)="questiontypeupdate()">
+      </div>
+    </div>
+  </div>
+
+</div>
