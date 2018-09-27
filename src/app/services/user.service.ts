@@ -6,10 +6,10 @@ import 'rxjs/add/operator/map';
 import { AuthenticationService } from './authentication.service';
 import { User } from './user';
 import {Observable} from 'rxjs/Observable';
-
+import {server} from "../config";
 @Injectable()
 export class UserService {
-  server = 'http://localhost:3002';
+  server = server;
   constructor(
     private http: Http,
     private authenticationService: AuthenticationService) {

@@ -58,6 +58,7 @@ export class EditquestionComponent implements OnInit {
   sectionshow( value){
     if (this.presentsection == 0 && this.pickedBy!=this.currentuser){
       $('.alert').css('display', 'block');
+      $('.alertmessage').text('please pick the question to summarise');
       console.log("please pick this question and then write the summarisation, All the Best");
     } else {
       this.presentsection += value;
@@ -82,6 +83,8 @@ export class EditquestionComponent implements OnInit {
     this.question.Question.PostsDatum.PostType = this.presenttype;
     this.postsService.updateAnswer({answer: this.question.Question}).subscribe(res => {
       console.log(res);
+      $('.alert').css('display', 'block');
+      $('.alertmessage').text('submitted the type successfully');
     });
   }
   ngOnInit() {

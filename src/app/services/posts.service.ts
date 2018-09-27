@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
-
+import {server} from "../config";
 @Injectable()
 export class PostsService {
-  server = 'http://localhost:3002';
+  server = server;
   questionroute = this.server + '/questions';
   answerroute = this.server + '/answers';
   answerupdate = this.server + '/answerupdate';

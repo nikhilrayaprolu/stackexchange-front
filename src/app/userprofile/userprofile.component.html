@@ -27,8 +27,8 @@
         </thead>
         <tbody>
         <tr *ngFor="let question of questions" style="cursor: pointer">
-          <td><a [routerLink]="['editquestion', question._id]" >{{question._id}}</a></td>
-          <td><a [routerLink]="['editquestion', question._id]" [innerHTML]="question.Title"></a></td>
+          <td><a [routerLink]="['/editquestion', question._id]" >{{question._id}}</a></td>
+          <td><a [routerLink]="['/editquestion', question._id]" [innerHTML]="question.Title"></a></td>
           <td><p *ngIf="question.PostsDatum">{{question.PostsDatum.PostType}}</p><p *ngIf="!question.PostsDatum"><i class="material-icons">clear</i></p></td>
           <td><p *ngIf="question.PostsDatum && question.PostsDatum.Abstractive"><i class="material-icons">done</i></p><p *ngIf="!(question.PostsDatum && question.PostsDatum.Abstractive)"><i class="material-icons">clear</i></p></td>
           <td><p *ngIf="question.PostsDatum && question.PostsDatum.Extractive"><i class="material-icons">done</i></p><p *ngIf="!(question.PostsDatum && question.PostsDatum.Extractive)"><i class="material-icons">clear</i></p></td>
